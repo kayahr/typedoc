@@ -1,5 +1,4 @@
 import { readFile, writeFile } from "node:fs/promises";
-import { join } from "node:path";
 import esbuild from "esbuild";
 import esbuildPluginLicense from "esbuild-plugin-license";
 import esbuildCopyStaticFiles from "esbuild-copy-static-files";
