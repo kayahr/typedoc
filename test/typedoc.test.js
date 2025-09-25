@@ -17,7 +17,7 @@ describe("typedoc", () => {
         tmpDir = await mkdtemp(tmpPrefix);
 
         // Copy typedoc bundle into bin directory
-        const binDir = join(tmpDir, "bin");
+        const binDir = join(tmpDir, "lib");
         await mkdir(binDir);
         await cp("lib", binDir, { recursive: true });
 
@@ -30,7 +30,7 @@ describe("typedoc", () => {
     });
 
     it("correctly outputs help", async () => {
-        const { stdout, stderr } = await execAsync("node bin/typedoc.js --help", { cwd: tmpDir });
+        const { stdout, stderr } = await execAsync("node lib/bin/cli.js --help", { cwd: tmpDir });
         assert.equal(stderr, "");
         assert.match(stdout, /^typedoc path\/to\/entry\.ts.*/);
     });

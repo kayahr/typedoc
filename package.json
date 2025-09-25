@@ -29,7 +29,10 @@
         "lib"
     ],
     "bin": {
-        "typedoc": "lib/typedoc.js"
+        "typedoc": "lib/bin/cli.js"
+    },
+    "exports": {
+        ".": "./lib/index.js"
     },
     "scripts": {
         "clean": "rm -rf lib",
@@ -38,7 +41,7 @@
         "test:unit": "node --test",
         "test:cspell": "cspell --color --no-progress",
         "prepare": "run clean build",
-        "start": "node lib/typedoc.js"
+        "start": "node lib/bin/cli.js"
     },
     "devDependencies": {
         "@kayahr/cspell": "9.2.1-bundle.2",
