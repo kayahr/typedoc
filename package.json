@@ -1,0 +1,51 @@
+{
+    "$schema": "http://json.schemastore.org/package",
+    "name": "@kayahr/typedoc",
+    "version": "0.28.13-bundle.1",
+    "type": "module",
+    "description": "A drop-in replacement for typedoc, bundling typedoc and its dependencies into a single module",
+    "keywords": [
+        "typedoc",
+        "no dependencies",
+        "bundle",
+        "apidoc"
+    ],
+    "license": "MIT",
+    "author": {
+        "name": "Klaus Reimer",
+        "email": "k@ailis.de"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/kayahr/typedoc.git"
+    },
+    "homepage": "https://github.com/kayahr/typedoc",
+    "bugs": "https://github.com/kayahr/typedoc/issues",
+    "funding": "https://github.com/kayahr/typedoc?sponsor=1",
+    "publishConfig": {
+        "access": "public"
+    },
+    "files": [
+        "lib"
+    ],
+    "bin": {
+        "typedoc": "lib/typedoc.js"
+    },
+    "scripts": {
+        "clean": "rm -rf lib",
+        "build": "node build.js",
+        "test": "run test:*",
+        "test:unit": "node --test",
+        "test:cspell": "cspell --color --no-progress",
+        "prepare": "run clean build",
+        "start": "node lib/typedoc.js"
+    },
+    "devDependencies": {
+        "@kayahr/cspell": "9.2.1-bundle.2",
+        "@kayahr/npm-utils": "0.0.2",
+        "esbuild": "0.25.10",
+        "esbuild-copy-static-files": "0.1.0",
+        "esbuild-plugin-license": "1.2.3",
+        "typedoc": "0.28.13"
+    }
+}
