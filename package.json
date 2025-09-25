@@ -1,7 +1,7 @@
 {
     "$schema": "http://json.schemastore.org/package",
     "name": "@kayahr/typedoc",
-    "version": "0.28.13-bundle.2",
+    "version": "0.28.13-bundle.3",
     "type": "module",
     "description": "A drop-in replacement for typedoc, bundling typedoc and its dependencies into a single module",
     "keywords": [
