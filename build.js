@@ -34,6 +34,20 @@ const shared = {
     }
 }
 
+// Template function that can be defined to customize report output
+function template(dependencies) {
+    return [
+        "This file lists third-party dependencies bundled with this package, along with their license information.",
+        ...dependencies.map((dependency) => [
+            `${dependency.packageJson.name} v${dependency.packageJson.version}`,
+            describeAuthor(dependency.packageJson.author),
+            `License: ${dependency.packageJson.license}`,
+            "",
+            dependency.licenseText.trim() || "(No LICENSE file found)",
+        ].filter(a => a != null).join("\n"))
+    ].join("\n\n-----\n\n");
+}
+
 // Bundle typedoc library
 await esbuild.build({
     entryPoints: [ "node_modules/typedoc/dist/index.js" ],
@@ -47,19 +61,7 @@ await esbuild.build({
             thirdParty: {
                 output: {
                     file: 'lib/LICENSE-THIRD-PARTY.txt',
-                    // Template function that can be defined to customize report output
-                    template(dependencies) {
-                        return [
-                            "This file lists third-party dependencies bundled with this package, along with their license information.",
-                            ...dependencies.map((dependency) => [
-                                `${dependency.packageJson.name} v${dependency.packageJson.version}`,
-                                describeAuthor(dependency.packageJson.author),
-                                `License: ${dependency.packageJson.license}`,
-                                "",
-                                dependency.licenseText.trim() || "(No LICENSE file found)",
-                            ].filter(a => a != null).join("\n"))
-                        ].join("\n\n-----\n\n");
-                    }
+                    template
                 }
             }
         }),
@@ -92,6 +94,60 @@ await esbuild.build({
     ...shared
 });
 
+// Bundle github-theme plugin
+await esbuild.build({
+    entryPoints: [ "node_modules/typedoc-github-theme/dist/index.js" ],
+    outfile: "lib/plugins/github-theme/index.js",
+    alias: {
+        "typedoc": "@kayahr/typedoc"
+    },
+    external: [
+        "@kayahr/typedoc"
+    ],
+    ...shared,
+    plugins: [
+        esbuildPluginLicense({
+            thirdParty: {
+                output: {
+                    file: 'lib/plugins/github-theme/LICENSE-THIRD-PARTY.txt',
+                    template
+                }
+            }
+        }),
+        esbuildCopyStaticFiles({
+            src: "node_modules/typedoc-github-theme/src/assets",
+            dest: "lib/plugins/github-theme/assets"
+        })
+    ]
+});
+
+// Bundle mdn-links plugin
+await esbuild.build({
+    entryPoints: [ "node_modules/typedoc-plugin-mdn-links/dist/index.js" ],
+    outfile: "lib/plugins/mdn-links/index.js",
+    alias: {
+        "typedoc": "@kayahr/typedoc"
+    },
+    external: [
+        "@kayahr/typedoc"
+    ],
+    ...shared,
+    plugins: [
+        esbuildPluginLicense({
+            thirdParty: {
+                output: {
+                    file: 'lib/plugins/mdn-links/LICENSE-THIRD-PARTY.txt',
+                    template
+                }
+            }
+        }),
+        esbuildCopyStaticFiles({
+            src: "node_modules/typedoc-plugin-mdn-links/data",
+            dest: "lib/plugins/mdn-links/data"
+        })
+    ]
+});
+
 async function replace(file, search, replace) {
     await writeFile(file, (await readFile(file, "utf-8")).replaceAll(search, replace), { encoding: "utf-8" });
 }
@@ -100,6 +156,8 @@ async function replace(file, search, replace) {
 const packageJSON = JSON.parse(await readFile("node_modules/typedoc/package.json", "utf8"));
 await writeFile("lib/typedoc.json", JSON.stringify({ peerDependencies: packageJSON.peerDependencies }));
 
-// Fix paths in bundle
+// Fix paths in bundles
 await replace("lib/index.js", "../../../package.json", "../typedoc.json");
 await replace("lib/index.js", "../../../../../static", "../static");
+await replace("lib/plugins/github-theme/index.js", "../src/assets/", "./assets/");
+await replace("lib/plugins/mdn-links/index.js", "data/web-api.json", "mdn-links/data/web-api.json");
