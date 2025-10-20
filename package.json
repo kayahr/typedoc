@@ -48,7 +48,7 @@
     "devDependencies": {
         "@kayahr/cspell": "9.2.1-bundle.2",
         "@kayahr/npm-utils": "1.0.0",
-        "esbuild": "0.25.10",
+        "esbuild": "0.25.11",
         "esbuild-copy-static-files": "0.1.0",
         "esbuild-plugin-license": "1.2.3",
         "typedoc": "0.28.14",
