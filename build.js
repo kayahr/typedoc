@@ -144,6 +144,10 @@ await esbuild.build({
         esbuildCopyStaticFiles({
             src: "node_modules/typedoc-plugin-mdn-links/data",
             dest: "lib/plugins/mdn-links/data"
+        }),
+        esbuildCopyStaticFiles({
+            src: "node_modules/typedoc/tsdoc.json",
+            dest: "lib/tsdoc.json"
         })
     ]
 });
