@@ -20,6 +20,7 @@ describe("typedoc", () => {
         const binDir = join(tmpDir, "lib");
         await mkdir(binDir);
         await cp("lib", binDir, { recursive: true });
+        await cp("package.json", join(tmpDir, "package.json"));
 
         // Install typescript
         await execAsync("npm install typescript", { cwd: tmpDir });
