@@ -1,7 +1,7 @@
 {
     "$schema": "https://json.schemastore.org/package",
     "name": "@kayahr/typedoc",
-    "version": "0.28.14-bundle.3",
+    "version": "0.28.17-bundle.1",
     "type": "module",
     "description": "A drop-in replacement for typedoc, bundling typedoc and its dependencies into a single module",
     "keywords": [
@@ -49,11 +49,11 @@
     "devDependencies": {
         "@kayahr/cspell": "9.3.2-bundle.1",
         "@kayahr/npm-utils": "1.1.1",
-        "esbuild": "0.27.0",
+        "esbuild": "0.27.4",
         "esbuild-copy-static-files": "0.1.0",
         "esbuild-plugin-license": "1.2.3",
-        "typedoc": "0.28.14",
-        "typedoc-github-theme": "0.3.1",
-        "typedoc-plugin-mdn-links": "5.0.10"
+        "typedoc": "0.28.17",
+        "typedoc-github-theme": "0.4.0",
+        "typedoc-plugin-mdn-links": "5.1.1"
     }
 }
